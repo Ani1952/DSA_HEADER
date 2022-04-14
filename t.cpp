@@ -3,17 +3,16 @@ using namespace std;
 
 int main()
 {
+    Graph_Matrix g(7);
+    g.add_edge(0, 1, 1);
+    g.add_edge(0, 4, 3);
+    g.add_edge(1, 4, 4);
+    g.add_edge(1, 2, 7);
+    g.add_edge(1, 5, 2);
+    g.add_edge(4, 5, 2);
+    g.add_edge(2, 5, 6);
+    g.add_edge(2, 3, 5);
+    g.add_edge(5, 3, 1);
 
-    int a[] = {2, 4, 7, 12, 9, 6, 3};
-    int n = sizeof(a) / sizeof(a[0]);
-    Heap_max h(n);
-    for (int i = 0; i < n; i++)
-        h.insert(a[i]);
-    cout << h.extract_max() << endl;
-
-    h.print();
-    h.remove(2);
-    cout << h.get_max() << endl;
-    h.print();
-    return 0;
+    cout<<g.kruskal();
 }

@@ -7,6 +7,52 @@ struct Node
     Node *next;
 };
 
+class Disjoint_Set
+{
+    int *height;
+    int *parent;
+    int n;
+
+public:
+    Disjoint_Set(int n)
+    {
+        this->n = n;
+        height = new int[n]{0};
+        parent = new int[n];
+        makeset();
+    }
+    void makeset()
+    {
+        for (int i = 0; i < n; i++)
+            parent[i] = i;
+    }
+
+    int find(int x)
+    {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    void unite(int x, int y)
+    {
+        int l = find(x);
+        int r = find(y);
+
+        if (l == r)
+            return;
+        if (height[l] < height[r])
+            parent[l] = r;
+        else if (height[l] > height[r])
+            parent[r] = l;
+        else
+        {
+            parent[r] = l;
+            height[l]++;
+        }
+    }
+    friend class Graph_Matrix;
+};
+
 class List
 {
 private:
@@ -151,7 +197,6 @@ public:
         slow = source;
         fast = source->next;
 
-        /* Advance 'fast' two nodes, and advance 'slow' one node */
         while (fast != NULL)
         {
             fast = fast->next;
@@ -287,7 +332,10 @@ public:
         {
             cout << "|| " << i << " ||"
                  << "-->>:";
-            l[i].print();
+            if (l[i].get_head())
+                l[i].print();
+            else
+                cout << endl;
         }
         cout << endl;
     }
@@ -401,11 +449,11 @@ public:
                 a[i][j] = 0;
     }
     bool *vis = new bool[v];
-    void add_edge(int x, int y, bool undir = true)
+    void add_edge(int x, int y, int w = 1, bool undir = true)
     {
-        a[x][y] = 1;
+        a[x][y] = w;
         if (undir)
-            a[y][x] = 1;
+            a[y][x] = w;
     }
     void print()
     {
@@ -418,6 +466,46 @@ public:
             }
             cout << endl;
         }
+    }
+
+    int kruskal()
+    {
+        int cost[v][v];
+        for (int i = 0; i < v; i++)
+            for (int j = 0; j < v; j++)
+            {
+                if (!a[i][j])
+                    cost[i][j] = INT_MAX;
+                else
+                    cost[i][j] = a[i][j];
+            }
+        int mincost = 0;
+
+        Disjoint_Set s(v);
+
+        // Include minimum weight edges one by one
+        int edge_count = 0;
+        while (edge_count < v - 1)
+        {
+            int min = INT_MAX, a = -1, b = -1;
+            for (int i = 0; i < v; i++)
+            {
+                for (int j = 0; j < v; j++)
+                {
+                    if (s.find(i) != s.find(j) && cost[i][j] < min)
+                    {
+                        min = cost[i][j];
+                        a = i;
+                        b = j;
+                    }
+                }
+            }
+            mincost += min;
+            s.unite(a, b);
+
+            cout << "Edge " << edge_count++ << ":(" << a << "," << b << ")  cost:" << min << endl;
+        }
+        return mincost;
     }
 
     void bfs(int source = 0)
