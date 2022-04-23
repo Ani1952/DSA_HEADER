@@ -67,12 +67,12 @@ double knapsack(int w, struct knap arr[], int n)
 int main()
 {
 
-    int a[][2] = {{280, 40}, {100, 10}, {120, 20}, {120, 24}};
+    int a[][2] = {{10, 1}, {5, 3}, {15, 4}, {7, 3}, {6, 2}, {18, 1}, {3, 2}};
     int n = sizeof(a) / sizeof(a[0]);
     knap arr[n];
     for (int i = 0; i < n; i++)
         make_knap(arr, a, n);
     print(arr, n);
-    cout<<endl;
-    cout<<knapsack(65,arr,n);
+    cout << endl;
+    cout << knapsack(15, arr, n);
 }
