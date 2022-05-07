@@ -519,6 +519,7 @@ public:
 
             cout << "Edge " << edge_count++ << ":(" << a << "," << b << ")  cost:" << min << endl;
         }
+        cout << "MINIMUM COST IS :->";
         return mincost;
     }
 
@@ -577,6 +578,7 @@ public:
                 vis[b] = vis[a] = true;
             }
         }
+        cout << "MINIMUM COST IS :->";
         return mincost;
     }
 
@@ -615,6 +617,41 @@ public:
                     dist[V] = dist[u] + a[u][V];
         }
         djikstra_Util_2(dist);
+    }
+
+    void floyd_warshal()
+    {
+        int dist[v][v];
+        int i, j, k;
+        for (i = 0; i < v; i++)
+        {
+            for (j = 0; j < v; j++)
+            {
+                if (!a[i][j])
+                    dist[i][j] = INT_MAX;
+                else
+                    dist[i][j] = a[i][j];
+            }
+        }
+
+        for (k = 0; k < v; k++)
+            for (i = 0; i < v; i++)
+                for (j = 0; j < v; j++)
+                    if (dist[i][j] > dist[i][k] + dist[k][j])
+                        dist[i][j] = dist[i][k] + dist[k][j];
+
+        for (i = 0; i < v; i++)
+        {
+            cout << "| ";
+            for (j = 0; j < v; j++)
+            {
+                if (dist[i][j] = INT_MAX)
+                    cout << "^ |";
+                else
+                    cout << dist[i][j] << " |";
+            }
+            cout << endl;
+        }
     }
 
     void bfs(int source = 0)

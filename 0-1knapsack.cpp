@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-using namespace std::chrono;
 
 int knapsack(int W, int wt[], int val[], int n)
 {
@@ -12,12 +11,10 @@ int knapsack(int W, int wt[], int val[], int n)
         return max(val[n - 1] + knapsack(W - wt[n - 1], wt, val, n - 1), knapsack(W, wt, val, n - 1));
 }
 
-int knapSack(int W, int wt[], int val[], int n)
+void knapSack(int W, int wt[], int val[], int n)
 {
     int i, w;
-    int **k = new int *[n + 1];
-    for (int i = 0; i < n + 1; i++)
-        k[i] = new int[w + 1];
+    int k[n + 1][W + 1];
     for (i = 0; i <= n; i++)
     {
         for (w = 0; w <= W; w++)
@@ -33,26 +30,35 @@ int knapSack(int W, int wt[], int val[], int n)
                 k[i][w] = k[i - 1][w];
         }
     }
-    return k[n][W];
+    cout << "Knapsack Profit is ::" << k[n][W] << endl;
+    ;
+    int X = k[n][W];
+    int Y = W;
+    int j;
+    for (j = n; j > 0; j--)
+    {
+        if (X = k[j - 1][Y])
+        {
+            continue;
+        }
+        else
+        {
+            cout << j << " Added to Knapasck " << endl;
+            Y -= wt[j];
+            X -= val[j];
+            if (!X)
+                break;
+        }
+    }
 }
 
 int main()
 {
-
-    auto start = high_resolution_clock::now();
-    int val[] = {60, 100, 120};
-    int wt[] = {10, 20, 30};
-    int W = 50;
+    system("cls");
+    int val[] = {100, 20, 40, 60, 50, 30, 80};
+    int wt[] = {5, 4, 3, 2, 1, 3, 2};
+    int W = 10;
     int n = sizeof(val) / sizeof(val[0]);
-    cout << knapsack(W, wt, val, n) << endl;
-
-    auto stop = high_resolution_clock::now();
-
-    auto duration = duration_cast<microseconds>(stop - start);
-
-    cout << "Time taken by knap : "
-         << duration.count() << " microseconds" << endl
-         << endl;
-
+    knapSack(W, wt, val, n);
     return 0;
 }
