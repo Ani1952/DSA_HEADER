@@ -53,7 +53,7 @@ int main()
 
     system("CLS");
 
-    int arr[] = {40, 20, 30, 10, 30};
+    int arr[] = {2,3,5,2,4};
     int n = sizeof(arr) / sizeof(arr[0]);
     order(arr, n);
     return 0;

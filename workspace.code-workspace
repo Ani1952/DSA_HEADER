@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\Practice"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iostream": "cpp",
+			"chrono": "cpp",
+			"ostream": "cpp"
+		}
+	}
+}
