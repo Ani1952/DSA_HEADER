@@ -49,7 +49,7 @@ void ShortestPath(int **p, int i, int j)
 {
     if (i == j)
         cout << i << "->";
-    else if (p[i][j] == nil)
+    if (p[i][j] == nil)
         cout << "No Path" << endl;
     else
     {
@@ -81,24 +81,3 @@ void print(int **p)
 {
     for (int i = 0; i < V; i++)
     {
-        for (int j = 0; j < V; j++)
-            cout << p[i][j] << "  ";
-        cout << endl;
-    }
-}
-int main()
-{
-
-    system("cls");
-    int graph[V][V] = {{0, 0, 0, 0, 0},
-                       {0, 0, -4, 6, INF},
-                       {0, INF, 0, 8, INF},
-                       {0, INF, INF, 0, 3},
-                       {0, 1, -2, INF, 0}};
-
-    print(floydWarshall(graph));
-    cout << endl
-         << endl;
-    ShortestPath(floydWarshall(graph), 1, 4);
-    return 0;
-}
