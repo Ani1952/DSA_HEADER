@@ -452,12 +452,16 @@ public:
                 a[i][j] = 0;
     }
     bool *vis = new bool[v];
+
+
     void add_edge(int x, int y, int w = 1, bool undir = true)
     {
         a[x][y] = w;
         if (undir)
             a[y][x] = w;
     }
+
+
     void print()
     {
         for (int i = 0; i < v; i++)
@@ -671,7 +675,7 @@ public:
             q.pop();
             for (int i = 0; i < v; i++)
             {
-                if (a[f][i])
+                if (a[f][i]) 
                 {
                     if (!vis[i])
                     {
