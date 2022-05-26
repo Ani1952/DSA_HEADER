@@ -42,6 +42,13 @@ int **floydWarshall(int graph[][V])
     }
 
     printSolution(dist);
+    cout << endl;
+    for (int i = 1; i < V; i++)
+    {
+        for (int j = 1; j < V; j++)
+            cout << p[i][j] << "  ";
+        cout << endl;
+    }
     return p;
 }
 
@@ -63,9 +70,9 @@ void printSolution(int dist[][V])
     cout << "The following matrix shows the shortest "
             "distances"
             " between every pair of vertices \n";
-    for (int i = 0; i < V; i++)
+    for (int i = 1; i < V; i++)
     {
-        for (int j = 0; j < V; j++)
+        for (int j = 1; j < V; j++)
         {
             if (dist[i][j] == INF)
                 cout << "INF"
@@ -77,15 +84,6 @@ void printSolution(int dist[][V])
     }
 }
 
-void print(int **p)
-{
-    for (int i = 0; i < V; i++)
-    {
-        for (int j = 0; j < V; j++)
-            cout << p[i][j] << "  ";
-        cout << endl;
-    }
-}
 int main()
 {
 
@@ -96,9 +94,9 @@ int main()
                        {0, INF, INF, 0, 3},
                        {0, 1, -2, INF, 0}};
 
-    print(floydWarshall(graph));
-    cout << endl
-         << endl;
+    // print(floydWarshall(graph));
+    // cout << endl
+    //      << endl;
     ShortestPath(floydWarshall(graph), 1, 4);
     return 0;
 }

@@ -45,7 +45,33 @@ void order(int p[], int n)
     cout << "Optimal braces for multiplication order ::: ";
     parenthesis(1, n - 1, n, (int *)braces, name);
     cout << endl
-         << "Optimal number of scalar multiplications are " << m[1][n - 1] << endl;
+         << "Optimal number of scalar multiplications are " << m[1][n - 1] << endl
+         << endl;
+
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 1; j < n; j++)
+        {
+            if (j >= i)
+                cout << m[i][j] << " ";
+            else
+            cout<<"  ";
+        }
+        cout << endl;
+    }
+    cout << endl
+         << endl;
+
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 1; j < n; j++)
+        {
+            if (j >= i and braces[i][j]<5 and braces[i][j]!=0)
+                cout << braces[i][j] << " ";
+            else cout<<"  ";
+        }
+        cout << endl;
+    }
 }
 
 int main()
@@ -53,9 +79,8 @@ int main()
 
     system("CLS");
 
-    int arr[] = {2,3,5,2,4};
+    int arr[] = {2, 3, 5, 2, 4};
     int n = sizeof(arr) / sizeof(arr[0]);
     order(arr, n);
     return 0;
-
 }

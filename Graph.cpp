@@ -17,7 +17,7 @@ int main()
     system("CLS");
     cout << endl;
     g.print();
-    cout << endl;
+    cout << endl<<endl<<endl;
     cout << "KRUSKAL's ALGORITHM" << endl;
     cout << g.kruskal() << endl<<endl;
     cout << "PRIM's ALGORITHM" << endl;
