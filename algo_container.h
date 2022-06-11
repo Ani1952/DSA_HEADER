@@ -997,7 +997,7 @@ public:
         {
             if (arr[i] < arr[j])
             {
-                b[k] = a[i];
+                b[k] = arr[i];
                 i++;
                 k++;
             }
@@ -1010,7 +1010,7 @@ public:
         }
         while (i <= mid)
         {
-            b[k] = a[i];
+            b[k] = arr[i];
             i++;
             k++;
         }

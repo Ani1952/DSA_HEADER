@@ -53,9 +53,9 @@ void order(int p[], int n)
         for (int j = 1; j < n; j++)
         {
             if (j >= i)
-                cout << m[i][j] << " ";
+                cout << m[i][j] << "\t";
             else
-            cout<<"  ";
+            cout<<" \t";
         }
         cout << endl;
     }
@@ -66,9 +66,9 @@ void order(int p[], int n)
     {
         for (int j = 1; j < n; j++)
         {
-            if (j >= i and braces[i][j]<5 and braces[i][j]!=0)
-                cout << braces[i][j] << " ";
-            else cout<<"  ";
+            if (j >= i and braces[i][j]<8 and braces[i][j]!=0)
+                cout << braces[i][j] << "\t";
+            else cout<<" \t";
         }
         cout << endl;
     }

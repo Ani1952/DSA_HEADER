@@ -34,7 +34,13 @@ void printboard(int a[][25], int n)
     {
         cout << " | ";
         for (int j = 0; j < n; j++)
-            cout << a[i][j] << " | ";
+        {
+            if (a[i][j])
+                cout << 'Q' << " | ";
+            else
+                cout << " "
+                     << " | ";
+        }
         cout << endl;
     }
 }
@@ -63,8 +69,9 @@ int main()
 {
     system("CLS");
     int n;
+    cout << "Enter Queen" << endl;
     cin >> n;
-    int a[25][25]={0};
+    int a[25][25] = {0};
     NQ(a, n);
     return 0;
 }
