@@ -6,7 +6,22 @@ using namespace std;
 #define inf 99999
 #define nil -99999
 
-void printsolution(int dist[][V]);
+void printsolution(int dist[][V])
+{
+    cout << "The shortest path distance between all pair of vertices are shown by the given matrix" << endl;
+    for (int i = 1; i < V; i++)
+    {
+        for (int j = 1; j < V; j++)
+        {
+            if (dist[i][j] == inf)
+                cout << "INF"
+                     << "  ";
+            else
+                cout << dist[i][j] << "   ";
+        }
+        cout << endl;
+    }
+}
 
 int **FLoyd_Warshal(int G[V][V])
 {
@@ -56,22 +71,6 @@ void shortestpath(int **p, int i, int j)
         cout << j << "->";
     }
 }
-void printsolution(int dist[][V])
-{
-    cout << "The shortest path distance between all pair of vertices are shown by the given matrix" << endl;
-    for (int i = 1; i < V; i++)
-    {
-        for (int j = 1; j < V; j++)
-        {
-            if (dist[i][j] == inf)
-                cout << "INF"
-                     << "  ";
-            else
-                cout << dist[i][j] << "   ";
-        }
-        cout << endl;
-    }
-}
 
 int main()
 {
@@ -82,15 +81,17 @@ int main()
                        {0, inf, 0, 8, inf},
                        {0, inf, inf, 0, 3},
                        {0, 1, -2, inf, 0}};
+                       
 
     for (int i = 1; i < V; i++)
     {
         for (int j = 1; j < V; j++)
         {
             shortestpath(FLoyd_Warshal(graph), i, j);
-            cout<<"\t\t";
+            cout << "\t\t\t";
         }
-        cout<<endl<<endl;
+        cout << endl
+             << endl;
     }
     return 0;
 }

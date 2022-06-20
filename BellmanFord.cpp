@@ -1,89 +1,109 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 struct Edge
 {
-    int src, dest, weight;
+    int u;
+    int v;
+    int wt;
 };
-struct Graph
-{
-    int V, E;
-    struct Edge *edge;
-};
-struct Graph *create(int V, int E)
-{
-    struct Graph *graph = new Graph;
-    graph->E = E;
-    graph->V = V;
-    graph->edge = new Edge[E];
-    return graph;
-}
-void print(int *dist, int n)
-{
-    cout << "VERTEX \t Distance From Source" << endl;
-    for (int i = 0; i < n; i++)
-        cout << i << "\t\t" << dist[i] << endl;
-}
-void BellmanFord(struct Graph *graph, int src)
-{
-    int v = graph->V;
-    int e = graph->E;
-    int dist[v];
-    for (int i = 0; i < v; i++)
-        dist[i] = INT_MAX;
-    dist[src] = 0;
 
-    for (int i = 0; i < v; i++)
+void printPath(int parent[], int vertex, int source)
+{
+    if (vertex < 0)
     {
-        for (int j = 0; j < e; j++)
-        {
-            int u = graph->edge[j].src;
-            int v = graph->edge[j].dest;
-            int w = graph->edge[j].weight;
-            if (dist[u] != INT_MAX and dist[u] + w < dist[v])
-                dist[v] = dist[u] + w;
-        }
+        return;
     }
 
-    for (int i = 0; i < e; i++)
+    printPath(parent, parent[vertex], source);
+    if (vertex != source)
     {
-        int u = graph->edge[i].src;
-        int v = graph->edge[i].dest;
-        int w = graph->edge[i].weight;
-        if (dist[u] != INT_MAX and dist[u] + w < dist[v])
+        cout << ", ";
+    }
+    cout << (char)(65 + vertex);
+}
+
+void bellmanford(int n, int edges, int src, Edge arr[])
+{
+    int dist[n];
+    for (int i = 0; i < n; i++)
+    {
+        dist[i] = INT_MAX;
+    }
+    dist[src] = 0;
+    int parent[n];
+    for (int i = 0; i < n; i++)
+    {
+        parent[i] = -1;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < edges; j++)
         {
-            cout << "Negative Cycle Detected" << endl;
+            int u = arr[j].u;
+            int v = arr[j].v;
+            int wt = arr[j].wt;
+            if (dist[u] != INT_MAX && dist[u] + wt < dist[v])
+            {
+                dist[v] = dist[u] + wt;
+                parent[v] = u;
+            }
+        }
+    }
+    for (int j = 0; j < edges; j++)
+    {
+        int u = arr[j].u;
+        int v = arr[j].v;
+        int wt = arr[j].wt;
+        if (dist[u] != INT_MAX && dist[u] + wt < dist[v])
+        {
+            cout << "Negative wt cycle exists!!!";
             return;
         }
     }
 
-    print(dist, v);
+    for (int i = 0; i < n; i++)
+    {
+        if (i == src)
+        {
+            continue;
+        }
+        if (dist[i] < INT_MAX)
+        {
+            cout << "The distance of vertex " << i << " from the source is :  " << dist[i] << endl;
+            // printPath(parent, i, src); cout << "]" << endl;
+            printPath(parent, i, src);
+            cout << endl;
+        }
+    }
 }
 
 int main()
 {
-
-    system("CLS");
-    int v = 5, e = 8;
-    struct Graph *graph = create(v, e);
-    int a[][3] = {{0, 1, -1},
-                  {0, 2, 4},
-                  {1, 2, 3},
-                  {1, 3, 2},
-                  {1, 4, 2},
-                  {3, 2, 5},
-                  {3, 1, 1},
-                  {4, 3, -3}};
-
+    int v, e;
+    cout << "Enter the number of vertices : ";
+    cin >> v;
+    cout << "Enter the number of edges : ";
+    cin >> e;
+    Edge arr[e];
     for (int i = 0; i < e; i++)
     {
-        graph->edge[i].src = a[i][0];
-        graph->edge[i].dest = a[i][1];
-        graph->edge[i].weight = a[i][2];
+        cin >> arr[i].u >> arr[i].v >> arr[i].wt;
     }
-
-    BellmanFord(graph, 0);
-
-    return 0;
+    int s;
+    cout << "Enter the source vertex : ";
+    cin >> s;
+    bellmanford(v, e, s, arr);
 }
+
+/*
+6 8 0
+0 1 1
+1 2 4
+1 3 1
+3 2 2
+4 3 4
+0 4 5
+0 5 1
+5 0 1
+*/

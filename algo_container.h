@@ -453,14 +453,12 @@ public:
     }
     bool *vis = new bool[v];
 
-
     void add_edge(int x, int y, int w = 1, bool undir = true)
     {
         a[x][y] = w;
         if (undir)
             a[y][x] = w;
     }
-
 
     void print()
     {
@@ -603,6 +601,20 @@ public:
             cout << i << " \t\t" << dist[i] << endl;
     }
 
+    void util(int parent[], int v, int src)
+    {
+        if (v < 0)
+        {
+            return;
+        }
+        util(parent, parent[v], src);
+        if (v != src)
+        {
+            cout << ", ";
+        }
+
+        cout << char(65 + v);
+    }
     void djikstra(int src)
     {
         int dist[v];
@@ -611,6 +623,12 @@ public:
 
         dist[src] = 0;
 
+        int parent[v];
+        for (int i = 0; i < v; i++)
+        {
+            parent[i] = -1;
+        }
+
         for (int count = 0; count < v; count++)
         {
             int u = djikstra_Util_1(dist, vis);
@@ -618,9 +636,22 @@ public:
             for (int V = 0; V < v; V++)
 
                 if (!vis[V] && a[u][V] && dist[u] != INT_MAX && dist[u] + a[u][V] < dist[V])
+                {
                     dist[V] = dist[u] + a[u][V];
+                    parent[V] = u;
+                }
         }
         djikstra_Util_2(dist);
+        cout<<endl;
+
+        for (int i = 0; i < v; i++)
+        {
+            if (i == src)
+                continue;
+            util(parent, i, src);
+            cout << " --->  " << dist[i];
+            cout << endl;
+        }
     }
 
     void floyd_warshal()
@@ -675,7 +706,7 @@ public:
             q.pop();
             for (int i = 0; i < v; i++)
             {
-                if (a[f][i]) 
+                if (a[f][i])
                 {
                     if (!vis[i])
                     {

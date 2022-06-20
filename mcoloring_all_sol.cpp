@@ -3,45 +3,45 @@ using namespace std;
 
 #define n 3
 
-void doColor(int v, int m, int a[n][n], int colors[])
+void doColor(int k, int m, int a[n][n], int colors[])
 {
     while (true)
     {
-        colors[v] = (colors[v] + 1) % (m + 1);
-        if (!colors[v])
+        colors[k] = (colors[k] + 1) % (m + 1);
+        if (!colors[k])
             return;
 
         int j = 0;
-        while (j < v)
+        while (j < k)
         {
-            if (a[v][j] && colors[v] == colors[j])
+            if (a[k][j] && colors[k] == colors[j])
                 break;
             ++j;
         }
 
-        if (j == v)
+        if (j == k)
             return;
     }
 }
 
-void mColoring(int v, int m, int graph[n][n], int colors[])
+void mColoring(int k, int m, int graph[n][n], int colors[])
 {
     static int count;
 
     while (true)
     {
-        doColor(v, m, graph, colors);
-        if (colors[v] == 0)
+        doColor(k, m, graph, colors);
+        if (colors[k] == 0)
             return;
 
-        if (v + 1 == n)
+        if (k + 1 == n)
         {
             cout <<endl<< ++count<<endl;
             for (int i = 0; i < n; ++i)
                 cout << (char)('A' + i) << ':' << "    " << colors[i] << endl;
         }
 
-        mColoring(v + 1, m, graph, colors);
+        mColoring(k + 1, m, graph, colors);
     }
 }
 
